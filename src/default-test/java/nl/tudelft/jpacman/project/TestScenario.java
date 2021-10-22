@@ -9,11 +9,14 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Random;
+
 import static org.junit.Assert.*;
 
 public class TestScenario {
 
     private Launcher launcher;
+
 
 
     //launch ui
@@ -93,6 +96,10 @@ public class TestScenario {
 
     }
 
+    private Direction randomDirection(){//generate random direction
+        return Direction.values()[new Random().nextInt(Direction.values().length)];
+    }
+
     @Test//TS005 : player die
     public void playerDie(){
         Game game = launcher.getGame();
@@ -100,7 +107,18 @@ public class TestScenario {
         game.start();
         assertTrue(game.isInProgress());
 
-        for(int i =0;i<steps;i++)
+        Direction chosen;
+
+        if (game.isInProgress()){//check game is still running
+            chosen = randomDirection();//generate random direction
+            game.move(player, chosen);//move the player by random
+        }else if (!player.isAlive()){
+            assertFalse(player.isAlive());//check if the player still alive
+            assertFalse(game.isInProgress());//game stop when player is dead
+        }
+
+
+
     }
 
 
