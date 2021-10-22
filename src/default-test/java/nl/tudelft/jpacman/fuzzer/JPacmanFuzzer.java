@@ -75,7 +75,7 @@ class JPacmanFuzzer {
      * @throws IOException when the log write created.
      */
     @RepeatedTest(RUNS)
-    void fuzzerTest(RepetitionInfo repetitionInfo) throws IOException {
+    void fuzzerTest(@org.jetbrains.annotations.NotNull RepetitionInfo repetitionInfo) throws IOException {
         Game game = launcher.getGame();
         Direction chosen = Direction.EAST;
 

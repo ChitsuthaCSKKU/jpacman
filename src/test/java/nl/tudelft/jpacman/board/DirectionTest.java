@@ -2,6 +2,7 @@ package nl.tudelft.jpacman.board;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -19,4 +20,6 @@ public class DirectionTest {
         Direction north = Direction.valueOf("NORTH");
         assertThat(north.getDeltaY()).isEqualTo(-1);
     }
+
+
 }
