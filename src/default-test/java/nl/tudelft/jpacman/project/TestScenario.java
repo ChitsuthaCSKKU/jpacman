@@ -2,6 +2,7 @@ package nl.tudelft.jpacman.project;
 
 import nl.tudelft.jpacman.Launcher;
 import nl.tudelft.jpacman.board.Direction;
+import nl.tudelft.jpacman.board.Square;
 import nl.tudelft.jpacman.game.Game;
 import nl.tudelft.jpacman.level.Player;
 import org.junit.jupiter.api.AfterEach;
@@ -75,6 +76,31 @@ public class TestScenario {
         game.move(player,Direction.WEST);
         game.move(player,Direction.WEST);
         assertEquals(30,player.getScore());//point should remain the same
+    }
+
+    @Test// TS004 : move fail hit wall
+    public void encounterWall(){
+
+        Game game = launcher.getGame();
+        Player player = game.getPlayers().get(0);
+        game.start();
+        assertTrue(game.isInProgress());
+        game.move(player,Direction.NORTH);//move player north to hit the wall
+        Square square1 = player.getSquare();//get location
+        game.move(player,Direction.NORTH);//move north again
+        Square square2 = player.getSquare();// get location
+        assertEquals(square1,square2);//position should be the same consider that the player didn't move due to wall blocking
+
+    }
+
+    @Test//TS005 : player die
+    public void playerDie(){
+        Game game = launcher.getGame();
+        Player player = game.getPlayers().get(0);
+        game.start();
+        assertTrue(game.isInProgress());
+
+        for(int i =0;i<steps;i++)
     }
 
 
