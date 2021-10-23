@@ -116,7 +116,7 @@ public class TestScenario {
         assertFalse(player.isAlive());//check if the player still alive
         assertFalse(game.isInProgress());//game stop when player is dead
 
-    }
+    } 
 
     @Test//TS006 :player win all pallet has been consume
     public void playerWin(){
