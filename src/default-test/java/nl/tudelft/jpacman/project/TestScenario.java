@@ -109,12 +109,29 @@ public class TestScenario {
 
         Direction chosen;
 
-        if (game.isInProgress()){//check game is still running
+        while (game.isInProgress()){//check game is still running
             chosen = randomDirection();//generate random direction
             game.move(player, chosen);//move the player by random
-        }else if (!player.isAlive()){
-            assertFalse(player.isAlive());//check if the player still alive
-            assertFalse(game.isInProgress());//game stop when player is dead
+        }
+        assertFalse(player.isAlive());//check if the player still alive
+        assertFalse(game.isInProgress());//game stop when player is dead
+
+    }
+
+    @Test//TS006 :player win all pallet has been consume
+    public void playerWin(){
+        Game game = launcher.getGame();
+        Player player = game.getPlayers().get(0);
+        game.start();
+        assertTrue(game.isInProgress());
+        Direction chosen;
+
+        while (game.isInProgress()){
+            chosen = randomDirection();
+            game.move(player,chosen);
+
+            assertTrue(player.isAlive());
+            assertFalse(game.isInProgress());
         }
 
 
