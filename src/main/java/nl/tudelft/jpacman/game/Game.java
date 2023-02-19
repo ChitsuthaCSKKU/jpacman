@@ -45,6 +45,7 @@ public abstract class Game implements LevelObserver {
     /**
      * Starts or resumes the game.
      */
+	
     public void start() {
         synchronized (progressLock) {
             if (isInProgress()) {
@@ -67,7 +68,8 @@ public abstract class Game implements LevelObserver {
                 return;
             }
             inProgress = false;
-            getLevel().stop();
+			
+            getLevel().stop();;
         }
     }
 
@@ -107,6 +109,7 @@ public abstract class Game implements LevelObserver {
     @Override
     public void levelWon() {
         stop();
+		
     }
 
     @Override
