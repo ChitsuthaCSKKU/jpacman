@@ -180,13 +180,13 @@ public class Launcher {
     /**
      * Creates and starts a JPac-Man game.
      */
-    public void launch() {
+    /*public void launch() {
         makeGame();
         PacManUiBuilder builder = new PacManUiBuilder().withDefaultButtons();
         addSinglePlayerKeys(builder);
         pacManUI = builder.build(getGame());
         pacManUI.start();
-    }
+    } */
 
     /**
      * Disposes of the UI. For more information see
@@ -197,6 +197,24 @@ public class Launcher {
     public void dispose() {
         assert pacManUI != null;
         pacManUI.dispose();
+    }
+    public void launch() {
+        makeGame();
+        PacManUiBuilder builder = new PacManUiBuilder().withDefaultButtons().addButton("Restart",restart());
+        addSinglePlayerKeys(builder);
+        pacManUI = builder.build(getGame());
+        pacManUI.start();
+        //pacManUI.dispose();
+    }
+    /**
+     * Restart the game by dispose old game frame and launch new game frame instead
+     * @return Action, pack of function that dispose and launch
+     */
+    public Action restart(){
+        return ()->{
+            dispose();
+            launch();
+        };
     }
 
     /**
