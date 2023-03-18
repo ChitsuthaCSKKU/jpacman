@@ -1,18 +1,14 @@
 package nl.tudelft.jpacman.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
+import nl.tudelft.jpacman.game.Game;
+import nl.tudelft.jpacman.ui.ScorePanel.ScoreFormatter;
+
+import javax.swing.*;
+import java.awt.*;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
-
-import nl.tudelft.jpacman.game.Game;
-import nl.tudelft.jpacman.ui.ScorePanel.ScoreFormatter;
 
 /**
  * The default JPacMan UI frame. The PacManUI consists of the following
@@ -25,7 +21,7 @@ import nl.tudelft.jpacman.ui.ScorePanel.ScoreFormatter;
  * <li>A button panel, containing all buttons provided upon creation.
  * </ul>
  *
- * @author Jeroen Roosen 
+ * @author Jeroen Roosen
  *
  */
 public class PacManUI extends JFrame {
@@ -69,9 +65,9 @@ public class PacManUI extends JFrame {
                     final Map<Integer, Action> keyMappings,
                     ScoreFormatter scoreFormatter) {
         super("JPacman");
-        assert game != null;
-        assert buttons != null;
-        assert keyMappings != null;
+//        assert game != null;
+//        assert buttons != null;
+//        assert keyMappings != null;
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,7 +76,7 @@ public class PacManUI extends JFrame {
 
         JPanel buttonPanel = new ButtonPanel(buttons, this);
 
-        scorePanel = new ScorePanel(game.getPlayers());
+        scorePanel = new ScorePanel(game.getPlayers(), game);
         if (scoreFormatter != null) {
             scorePanel.setScoreFormatter(scoreFormatter);
         }
@@ -100,12 +96,24 @@ public class PacManUI extends JFrame {
      * Starts the "engine", the thread that redraws the interface at set
      * intervals.
      */
+
+    // Create UI
     public void start() {
         setVisible(true);
+        Schedule();
+    }
+
+    // Close UI
+    public void start(boolean check) {
+        setVisible(check);
+        Schedule();
+    }
+
+    // Process
+    public void Schedule(){
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         service.scheduleAtFixedRate(this::nextFrame, 0, FRAME_INTERVAL, TimeUnit.MILLISECONDS);
     }
-
     /**
      * Draws the next frame, i.e. refreshes the scores and game.
      */
