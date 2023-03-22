@@ -92,7 +92,6 @@ public class PacManUiBuilder {
      */
     private void addStartButton(final Game game) {
         assert game != null;
-
         buttons.put(START_CAPTION, game::start);
     }
 

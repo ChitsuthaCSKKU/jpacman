@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import nl.tudelft.jpacman.game.Game;
 import nl.tudelft.jpacman.level.Player;
 
 /**
@@ -29,6 +30,10 @@ public class ScorePanel extends JPanel {
      */
     private final Map<Player, JLabel> scoreLabels;
 
+    private final JLabel timeLabel;
+
+    private final Game game;
+
     /**
      * The default way in which the score is shown.
      */
@@ -46,14 +51,15 @@ public class ScorePanel extends JPanel {
      * @param players
      *            The players to display the scores of.
      */
-    public ScorePanel(List<Player> players) {
+    public ScorePanel(List<Player> players, Game game) {
         super();
         assert players != null;
-
-        setLayout(new GridLayout(2, players.size()));
+        assert game != null;
+        this.game = game;
+        setLayout(new GridLayout(3, players.size()));
 
         for (int i = 1; i <= players.size(); i++) {
-            add(new JLabel("Player " + i, JLabel.CENTER));
+            add(new JLabel("Player: " + players.get(0).getName(), JLabel.CENTER));
         }
         scoreLabels = new LinkedHashMap<>();
         for (Player player : players) {
@@ -61,6 +67,9 @@ public class ScorePanel extends JPanel {
             scoreLabels.put(player, scoreLabel);
             add(scoreLabel);
         }
+
+        timeLabel = new JLabel("Time(s): 0.00", JLabel.CENTER);
+        add(timeLabel);
     }
 
     /**
@@ -76,6 +85,11 @@ public class ScorePanel extends JPanel {
             score += scoreFormatter.format(player);
             entry.getValue().setText(score);
         }
+        if(game.isInProgress()) {
+            game.updateTime();
+        }
+        timeLabel.setText("Time(s) :" + (game.getTime()/1000.0));
+
     }
 
     /**
@@ -91,6 +105,8 @@ public class ScorePanel extends JPanel {
         String format(Player player);
     }
 
+
+
     /**
      * Let the score panel use a dedicated score formatter.
      * @param scoreFormatter Score formatter to be used.
@@ -99,4 +115,5 @@ public class ScorePanel extends JPanel {
         assert scoreFormatter != null;
         this.scoreFormatter = scoreFormatter;
     }
+
 }

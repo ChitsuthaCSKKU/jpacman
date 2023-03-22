@@ -30,12 +30,16 @@ repositories {
 
 dependencies {
     compile "com.google.guava:guava:$guavaVersion"
+    testImplementation 'junit:junit:4.13.1'
 
     compileOnly "com.github.spotbugs:spotbugs-annotations:$spotbugsAnnotationsVersion"
 
     testImplementation "org.junit.jupiter:junit-jupiter:$junitVersion"
     testCompile "org.mockito:mockito-core:$mockitoVersion"
     testCompile "org.assertj:assertj-core:$assertjVersion"
+
+    implementation 'com.google.firebase:firebase-admin:8.0.0'
+
 }
 
 task defaultTest(type: Test) {

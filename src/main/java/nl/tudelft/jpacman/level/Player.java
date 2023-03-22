@@ -14,6 +14,8 @@ import nl.tudelft.jpacman.sprite.Sprite;
  */
 public class Player extends Unit {
 
+    private String name;
+
     /**
      * The amount of points accumulated by this player.
      */
@@ -47,12 +49,21 @@ public class Player extends Unit {
      * @param deathAnimation
      *            The sprite to be shown when this player dies.
      */
+
     protected Player(Map<Direction, Sprite> spriteMap, AnimatedSprite deathAnimation) {
         this.score = 0;
         this.alive = true;
         this.sprites = spriteMap;
         this.deathSprite = deathAnimation;
         deathSprite.setAnimating(false);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
